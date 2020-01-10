@@ -10,7 +10,7 @@ url = 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=su
 html = requests.get(url).content
 soup = BeautifulSoup(html)
 
-path = "C:/Users/cbl04/Documents/empty_seat_parser/password.config"
+path = "password.config"
 f = open(path, 'r')
 password = f.read()
 
@@ -34,7 +34,7 @@ while True:
 
         # email
         msg = MIMEText("Register now: " + url)                   
-        msg['Subject'] = 'Empty seat in ' + course_name[0] + course_name[1] # 메일 제목 첨부
+        msg['Subject'] = 'Empty seat in ' + course_name[0] + course_name[1]
         msg['From'] = '0415cbl@naver.com'      
         msg['To'] = '0415cbl@gmail.com'       
        
