@@ -1,9 +1,9 @@
 import requests # scraper
 from bs4 import BeautifulSoup # parser
+
 import time # delay
 import smtplib # email
 from email.mime.text import MIMEText
-from email.header import Header
 
 empty_seat_count = 0
 url = 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&submit=Register%20Selected&wldel=PSYC%2C365%2C001'
