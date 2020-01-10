@@ -2,11 +2,17 @@ import requests # scraper
 from bs4 import BeautifulSoup # parser
 import time # delay
 import smtplib # email
+from email.mime.text import MIMEText
+from email.header import Header
 
 empty_seat_count = 0
 url = 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&submit=Register%20Selected&wldel=PSYC%2C365%2C001'
 html = requests.get(url).content
 soup = BeautifulSoup(html)
+
+path = "C:/Users/cbl04/Documents/empty_seat_parser/password.config"
+f = open(path, 'r')
+password = f.read()
 
 def get_students(url):
     table = soup.find_all('table')[3] # Third table of page
@@ -19,12 +25,27 @@ def main():
 
 while True:
     main()
-    if empty_seat_count != 10:
+
+    if empty_seat_count != 0:
         course_name = soup.title.string.split()
-        msg = 'Subject: Empty seat in ' + course_name[0] +'!!!'
-        print(msg)
-        from_addr = 'chanbin.lee123@gmail.com'
-        to_addr  = 'chanbin.lee123@gmail.com'
+
+        from_addr = '0415cbl@naver.com'
+        to_addr  = ['chanbin.lee123@gmail.com', '0415cbl@gmail.com']
+
+        # email
+        msg = MIMEText("Register now: " + url)                   
+        msg['Subject'] = 'Empty seat in ' + course_name[0] + course_name[1] # 메일 제목 첨부
+        msg['From'] = '0415cbl@naver.com'      
+        msg['To'] = '0415cbl@gmail.com'       
+       
+        # email server
+        server = smtplib.SMTP('smtp.naver.com', 587)
+        server.starttls()
+        server.login('0415cbl', password)
+
+        # send email
+        server.sendmail(from_addr, to_addr, msg.as_string())
+        server.close()
         break
 
     else:
