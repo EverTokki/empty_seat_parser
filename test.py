@@ -19,7 +19,7 @@ def main():
 
 while True:
     main()
-    if empty_seat_count != 0:
+    if empty_seat_count != 10:
         course_name = soup.title.string.split()
         msg = 'Subject: Empty seat in ' + course_name[0] +'!!!'
         print(msg)
